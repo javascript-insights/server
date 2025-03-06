@@ -1,0 +1,2 @@
+# server
+javascript-insights-server
