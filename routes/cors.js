@@ -16,7 +16,13 @@ router.get('/specific-origin', function (req, res) {
 // CORS with methods
 router.get('/allow-methods', function (req, res) {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Methods', 'POST, DELETE');
+  res.send('This endpoint allows specific HTTP methods');
+});
+
+router.put('/allow-methods', function (req, res) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'POST, DELETE');
   res.send('This endpoint allows specific HTTP methods');
 });
 
