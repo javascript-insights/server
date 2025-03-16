@@ -3,6 +3,9 @@ var router = express.Router();
 
 // Cookie routes with various options
 router.get('/', (req, res) => {
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Credentials', 'true');
+
   // Standard cookie
   res.cookie('standardCookie', 'value1', {
     maxAge: 24 * 60 * 60 * 1000, // 24 hours
@@ -33,10 +36,15 @@ router.get('/', (req, res) => {
 });
 
 router.get('/read', (req, res) => {
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Credentials', 'true');
   res.json({ cookies: req.cookies });
 });
 
 router.post('/set', (req, res) => {
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Credentials', 'true');
+
   const { name, value, options } = req.body;
 
   if (options.crossOrigin) {
@@ -62,6 +70,9 @@ router.post('/set', (req, res) => {
 });
 
 router.delete('/clear/:name', (req, res) => {
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Credentials', 'true');
+
   // Clear with cross-origin options
   res.clearCookie(req.params.name, {
     path: '/',
@@ -69,6 +80,15 @@ router.delete('/clear/:name', (req, res) => {
     secure: true
   });
   res.json({ message: 'Cookie cleared' });
+});
+
+// Add OPTIONS handler for preflight requests
+router.options('*', (req, res) => {
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.sendStatus(200);
 });
 
 module.exports = router;
