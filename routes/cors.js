@@ -10,7 +10,7 @@ router.get('/allow-all', function (req, res) {
 // Specific origin CORS
 router.get('/specific-origin', function (req, res) {
   res.header('Access-Control-Allow-Origin', 'https://sidanmor.com');
-  res.send('This endpoint allows only localhost:3000');
+  res.send('This endpoint allows only https://sidanmor.com');
 });
 
 // CORS with methods
